@@ -17,12 +17,12 @@ function DashboardContent({ onLogout }) {
   const fetchFeedback = async () => {
     try {
       console.log("🔄 Fetching feedback data...");
-      const response = await axios.get("http://localhost:5000/feedback");
+      const response = await axios.get("https://ocean-qr-backend.vercel.app/feedback");
       console.log("📊 Dashboard API Response:", response.data);
-      
+
       const feedbackData = response.data.data || response.data;
       console.log("📋 Processed feedback data:", feedbackData);
-      
+
       setData(feedbackData);
       setLoading(false);
     } catch (error) {
@@ -31,7 +31,7 @@ function DashboardContent({ onLogout }) {
     }
   };
 
-  
+
 
   const avgRating = data.length
     ? (data.reduce((s, i) => s + i.rating, 0) / data.length).toFixed(1)
@@ -42,7 +42,7 @@ function DashboardContent({ onLogout }) {
   const deleteFeedback = async (id) => {
     if (window.confirm("Are you sure you want to delete this feedback?")) {
       try {
-        await axios.delete(`http://localhost:5000/feedback/${id}`);
+        await axios.delete(`https://ocean-qr-backend.vercel.app/feedback/${id}`);
         setData(data.filter(item => item._id !== id));
         alert("Feedback deleted successfully!");
       } catch (error) {
@@ -57,15 +57,15 @@ function DashboardContent({ onLogout }) {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <img style={{height:"100px",width:"100px"}} src={hotelLogo2} alt="Hotel Logo" />
+          <img style={{ height: "100px", width: "100px" }} src={hotelLogo2} alt="Hotel Logo" />
         </div>
-       
+
         <nav>
           <button className="nav-item active">📋 Feedback</button>
           <button className="nav-item">📊 Analytics</button>
           <button className="nav-item">⚙️ Settings</button>
         </nav>
-       
+
       </aside>
 
       {/* Main Content */}
@@ -127,7 +127,7 @@ function DashboardContent({ onLogout }) {
               console.log("🔍 Rendering item:", item); // Debug log
               return (
                 <div key={item._id || i} className={`feedback-card rating-${item.rating}`}>
-                  
+
                   {/* Guest Details Section */}
                   <div className="guest-details">
                     <div className="guest-info-left">
@@ -152,7 +152,7 @@ function DashboardContent({ onLogout }) {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="guest-info-right">
                       <div className="rating-display">
                         <span className="stars">
@@ -163,7 +163,7 @@ function DashboardContent({ onLogout }) {
                       <div className="feedback-date">
                         {new Date(item.date).toLocaleDateString()} at {new Date(item.date).toLocaleTimeString()}
                       </div>
-                      <button 
+                      <button
                         className="delete-button"
                         onClick={() => deleteFeedback(item._id)}
                         title="Delete this feedback"
