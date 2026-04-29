@@ -127,7 +127,7 @@ function DashboardContent({ onLogout }) {
             >
               ☰
             </button>
-            <h1>Guest Feedback Dashboard</h1>
+            <h1>Dashboard</h1>
           </div>
           <div className="topbar-right">
             <span className="badge">{data.length} Total</span>
